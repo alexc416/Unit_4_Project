@@ -5,15 +5,26 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Hand[] hands = new Hand[79];
-        //read over the file, count lines, institude array with that many lines, IMPLEMENT
+        int lines = 0;
+        try {
+            File ff = new File("src/input");
+            Scanner ss = new Scanner(ff);
+            while (ss.hasNextLine()) {
+                ss.nextLine();
+                lines += 1;
+            }
+        } catch (FileNotFoundException ee) {
+            System.out.println("no file found");
+        }
+
+        Hand[] hands = new Hand[lines];
+
         int i = 0;
 
         //PARSER
         try {
             File f = new File("src/input");
             Scanner s = new Scanner(f);
-
             while (s.hasNextLine()) {
                 String line = s.nextLine();
                 String[] wholeHand = line.split("\\|");
@@ -65,18 +76,25 @@ public class Main {
 
             if (h.isFiveOfKind()) {
                 cardHands[0] += 1;
+                h.setHandType(0);
             } else if (h.isFullHouse()) {
                 cardHands[1] += 1;
+                h.setHandType(1);
             } else if (h.isFourOfKind()) {
                 cardHands[2] += 1;
+                h.setHandType(2);
             } else if (h.isThreeOfKind()) {
                 cardHands[3] += 1;
+                h.setHandType(3);
             } else if (h.isTwoPair()) {
                 cardHands[4] += 1;
+                h.setHandType(4);
             } else if (h.isOnePair()) {
                 cardHands[5] += 1;
+                h.setHandType(5);
             } else {
                 cardHands[6] += 1;
+                h.setHandType(6);
             }
         }
         for (int c = 0; c < 7; c++) {
@@ -98,6 +116,13 @@ public class Main {
             }
             System.out.println(out + cardHands[c]);
         }
+
+        //PART 2
+
+
+
+        int rank = 1;
+        int totBid = 0;
 
     }
 }

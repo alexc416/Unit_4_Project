@@ -76,25 +76,25 @@ public class Main {
 
             if (h.isFiveOfKind()) {
                 cardHands[0] += 1;
-                h.setHandType(0);
+                h.setHandType(7);
             } else if (h.isFullHouse()) {
                 cardHands[1] += 1;
-                h.setHandType(1);
+                h.setHandType(6);
             } else if (h.isFourOfKind()) {
                 cardHands[2] += 1;
-                h.setHandType(2);
+                h.setHandType(5);
             } else if (h.isThreeOfKind()) {
                 cardHands[3] += 1;
-                h.setHandType(3);
+                h.setHandType(4);
             } else if (h.isTwoPair()) {
                 cardHands[4] += 1;
-                h.setHandType(4);
+                h.setHandType(3);
             } else if (h.isOnePair()) {
                 cardHands[5] += 1;
-                h.setHandType(5);
+                h.setHandType(2);
             } else {
                 cardHands[6] += 1;
-                h.setHandType(6);
+                h.setHandType(1);
             }
         }
         for (int c = 0; c < 7; c++) {
@@ -118,11 +118,35 @@ public class Main {
         }
 
         //PART 2
-
-
-
-        int rank = 1;
         int totBid = 0;
 
+        for (int k = 0; k < hands.length; k++) {
+            int currRank = 1;
+            for (int l = 0; l < hands.length; l++) {
+                if (!(k == l)) {
+                    if (hands[k].getHandType() > hands[l].getHandType()) {
+                        System.out.println("CURR RANK +" + hands[k].getHandType() + " " + hands[l].getHandType());
+                        currRank += 1;
+                    } else if (hands[k].getHandType() == hands[l].getHandType()) {
+                        Boolean checking = true;
+                        int p = 0;
+                        while (checking) {
+                            if (hands[k].getCardValueAt(p) > hands[l].getCardValueAt(p)) {
+                                checking = false;
+                                System.out.println("FOUND DIFFERING AT " + p);
+                                currRank += 1;
+                            } else {
+                                p += 1;
+                            }
+                        }
+                    }
+                }
+            }
+            System.out.println("rank: " + currRank);
+            totBid += (hands[k].getBid() * currRank);
+            System.out.println(totBid);
+        }
+
+        System.out.println(totBid);
     }
 }

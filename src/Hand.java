@@ -23,8 +23,31 @@ public class Hand {
     public void setHandType(int e) {
         handType = e;
     }
+    public int getHandType() {
+        return handType;
+    }
+
     public void setListOfAmounts(int[] in) {
         listOfAmounts = in;
+    }
+
+    public int getBid() {
+        return bid;
+    }
+
+    public int getCardValueAt(int i) {
+        String check = cards[i];
+        if (check.equals("Ace")) {
+            return 1;
+        } else if (check.equals("Jack")) {
+            return 11;
+        } else if (check.equals("Queen")) {
+            return 12;
+        } else if (check.equals("King")) {
+            return 13;
+        } else {
+            return Integer.parseInt(check);
+        }
     }
 
     public boolean isFiveOfKind() {

@@ -38,7 +38,7 @@ public class Hand {
     public int getCardValueAt(int i) {
         String check = cards[i];
         if (check.equals("Ace")) {
-            return 1;
+            return 14;
         } else if (check.equals("Jack")) {
             return 11;
         } else if (check.equals("Queen")) {

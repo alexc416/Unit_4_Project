@@ -125,7 +125,7 @@ public class Main {
             for (int l = 0; l < hands.length; l++) {
                 if (!(k == l)) {
                     if (hands[k].getHandType() > hands[l].getHandType()) {
-                        System.out.println("CURR RANK +" + hands[k].getHandType() + " " + hands[l].getHandType());
+//                        System.out.println("rank has increased from: " + hands[k].getHandType() + " " + hands[l].getHandType());
                         currRank += 1;
                     } else if (hands[k].getHandType() == hands[l].getHandType()) {
                         Boolean checking = true;
@@ -133,20 +133,27 @@ public class Main {
                         while (checking) {
                             if (hands[k].getCardValueAt(p) > hands[l].getCardValueAt(p)) {
                                 checking = false;
-                                System.out.println("FOUND DIFFERING AT " + p);
                                 currRank += 1;
+                            } else if (hands[k].getCardValueAt(p) == hands[l].getCardValueAt(p)) {
+                                if (p == 4) {
+                                    checking = false;
+                                } else {
+                                    p += 1;
+                                }
                             } else {
-                                p += 1;
+                                checking = false;
                             }
                         }
                     }
                 }
             }
-            System.out.println("rank: " + currRank);
+
+            System.out.println("FINAL RANK: " + currRank);
+            System.out.println("adding: " + hands[k].getBid() * currRank);
             totBid += (hands[k].getBid() * currRank);
-            System.out.println(totBid);
+            System.out.println("Curr bid: " + totBid);
         }
 
-        System.out.println(totBid);
+        System.out.println("Total Bid Value: " + totBid);
     }
 }

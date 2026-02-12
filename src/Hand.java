@@ -13,7 +13,7 @@ public class Hand {
     }
 
     public void printHand() {
-        System.out.println(Arrays.toString(cards) + "\n" + bid + " " + handType);
+        System.out.print(Arrays.toString(cards) + " " + handType);
     }
 
     public String[] getCards() {
@@ -35,12 +35,16 @@ public class Hand {
         return bid;
     }
 
-    public int getCardValueAt(int i) {
+    public int getCardValueAt(int i, boolean j) {
         String check = cards[i];
         if (check.equals("Ace")) {
             return 14;
         } else if (check.equals("Jack")) {
-            return 11;
+            if (j) {
+                return 1;
+            } else {
+                return 11;
+            }
         } else if (check.equals("Queen")) {
             return 12;
         } else if (check.equals("King")) {
@@ -120,6 +124,25 @@ public class Hand {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public void updateForJacks() {
+        for (int i = 0; i < 13; i++) {
+            listOfAmounts[i] += 1;
+        }
+        if (isFiveOfKind()) {
+            setHandType(7);
+        } else if (isFourOfKind()) {
+            setHandType(6);
+        } else if (isFullHouse()) {
+            setHandType(5);
+        } else if (isThreeOfKind()) {
+            setHandType(4);
+        } else if (isTwoPair()) {
+            setHandType(3);
+        } else {
+            setHandType(2);
         }
     }
 }

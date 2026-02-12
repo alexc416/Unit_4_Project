@@ -79,10 +79,12 @@ public class Main {
                 h.setHandType(7);
             } else if (h.isFullHouse()) {
                 cardHands[1] += 1;
-                h.setHandType(6);
+                h.setHandType(5);
             } else if (h.isFourOfKind()) {
                 cardHands[2] += 1;
-                h.setHandType(5);
+                h.setHandType(6);
+                //out of order, but all other parts work so its good enough
+                //four of kind is stronger
             } else if (h.isThreeOfKind()) {
                 cardHands[3] += 1;
                 h.setHandType(4);
@@ -131,10 +133,10 @@ public class Main {
                         Boolean checking = true;
                         int p = 0;
                         while (checking) {
-                            if (hands[k].getCardValueAt(p) > hands[l].getCardValueAt(p)) {
+                            if (hands[k].getCardValueAt(p, false) > hands[l].getCardValueAt(p, false)) {
                                 checking = false;
                                 currRank += 1;
-                            } else if (hands[k].getCardValueAt(p) == hands[l].getCardValueAt(p)) {
+                            } else if (hands[k].getCardValueAt(p, false) == hands[l].getCardValueAt(p, false)) {
                                 if (p == 4) {
                                     checking = false;
                                 } else {
@@ -147,13 +149,46 @@ public class Main {
                     }
                 }
             }
-
-            System.out.println("FINAL RANK: " + currRank);
-            System.out.println("adding: " + hands[k].getBid() * currRank);
             totBid += (hands[k].getBid() * currRank);
-            System.out.println("Curr bid: " + totBid);
+
+        }
+        System.out.println("Total Bid Value: " + totBid);
+
+
+        //PART 3
+        for (Hand h : hands) {
+            h.updateForJacks();
         }
 
-        System.out.println("Total Bid Value: " + totBid);
+        int jackTot = 0;
+        for (int k = 0; k < hands.length; k++) {
+            int currRank = 1;
+            for (int l = 0; l < hands.length; l++) {
+                if (!(k == l)) {
+                    if (hands[k].getHandType() > hands[l].getHandType()) {
+                        currRank += 1;
+                    } else if (hands[k].getHandType() == hands[l].getHandType()) {
+                        Boolean checking = true;
+                        int p = 0;
+                        while (checking) {
+                            if (hands[k].getCardValueAt(p, true) > hands[l].getCardValueAt(p, true)) {
+                                checking = false;
+                                currRank += 1;
+                            } else if (hands[k].getCardValueAt(p, true) == hands[l].getCardValueAt(p, true)) {
+                                if (p == 4) {
+                                    checking = false;
+                                } else {
+                                    p += 1;
+                                }
+                            } else {
+                                checking = false;
+                            }
+                        }
+                    }
+                }
+            }
+            jackTot += (hands[k].getBid() * currRank);
+        }
+        System.out.println(jackTot);
     }
 }

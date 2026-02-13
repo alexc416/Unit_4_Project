@@ -78,10 +78,10 @@ public class Main {
                 cardHands[0] += 1;
                 h.setHandType(7);
             } else if (h.isFourOfKind()) {
-                cardHands[1] += 1;
+                cardHands[2] += 1;
                 h.setHandType(6);
             } else if (h.isFullHouse()) {
-                cardHands[2] += 1;
+                cardHands[1] += 1;
                 h.setHandType(5);
             } else if (h.isThreeOfKind()) {
                 cardHands[3] += 1;
@@ -112,7 +112,7 @@ public class Main {
             } else if (c == 5) {
                 out += "Number of one pair hands: ";
             } else {
-                out += "Number of high card: ";
+                out += "Number of high card hands: ";
             }
             System.out.println(out + cardHands[c]);
         }

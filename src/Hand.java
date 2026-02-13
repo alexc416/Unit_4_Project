@@ -128,9 +128,17 @@ public class Hand {
     }
 
     public void updateForJacks() {
-        for (int i = 0; i < 13; i++) {
-            listOfAmounts[i] += 1;
+        int jackCount = listOfAmounts[10];
+        listOfAmounts[10] = 0;
+
+        int maxIndex = 0;
+        for (int i = 1; i < 13; i++) {
+            if (listOfAmounts[i] > listOfAmounts[maxIndex]) {
+                maxIndex = i;
+            }
         }
+        listOfAmounts[maxIndex] += jackCount;
+
         if (isFiveOfKind()) {
             setHandType(7);
         } else if (isFourOfKind()) {
@@ -141,8 +149,10 @@ public class Hand {
             setHandType(4);
         } else if (isTwoPair()) {
             setHandType(3);
-        } else {
+        } else if (isOnePair()) {
             setHandType(2);
+        } else {
+            setHandType(1);
         }
     }
 }

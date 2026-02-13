@@ -77,14 +77,12 @@ public class Main {
             if (h.isFiveOfKind()) {
                 cardHands[0] += 1;
                 h.setHandType(7);
-            } else if (h.isFullHouse()) {
-                cardHands[1] += 1;
-                h.setHandType(5);
             } else if (h.isFourOfKind()) {
-                cardHands[2] += 1;
+                cardHands[1] += 1;
                 h.setHandType(6);
-                //out of order, but all other parts work so its good enough
-                //four of kind is stronger
+            } else if (h.isFullHouse()) {
+                cardHands[2] += 1;
+                h.setHandType(5);
             } else if (h.isThreeOfKind()) {
                 cardHands[3] += 1;
                 h.setHandType(4);
@@ -189,6 +187,6 @@ public class Main {
             }
             jackTot += (hands[k].getBid() * currRank);
         }
-        System.out.println(jackTot);
+        System.out.println("Total Bid Value With Jacks Wild: " +jackTot);
     }
 }
